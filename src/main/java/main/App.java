@@ -17,6 +17,8 @@ class Player implements java.io.Serializable {
 	}
 
 	Monster.State attack(Monster monster) {
+		System.out.println(String.format("%s hyökkää %s hirviöön!", name, monster.type));
+
 		return monster.takeDamage(10);
 	}
 }
@@ -76,8 +78,6 @@ class Cave implements java.io.Serializable {
 			return;
 		}
 
-		System.out.println("Luolan hirviöt:");
-
 		for (int i = 0; i < monsters.size(); i ++) {
 			monsters.get(i).printInfo(i + 1);
 		}
@@ -124,6 +124,10 @@ class Impl {
 	}
 
 	void ListaaHirviot() {
+		if (!cave.monsters.isEmpty()) {
+			System.out.println("Luolan hirviöt:");
+		}
+
 		cave.listMonsters();
 	}
 
@@ -135,8 +139,6 @@ class Impl {
 		int number = Integer.parseInt(in.nextLine()) - 1;
 
 		Monster monster = cave.monsters.get(number);
-
-		System.out.println(String.format("%s hyökkää %s hirviöön!", cave.player.name, monster.type));
 
 		Monster.State ms = cave.player.attack(monster);
 
