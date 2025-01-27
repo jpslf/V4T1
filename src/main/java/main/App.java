@@ -66,6 +66,12 @@ class Cave implements java.io.Serializable {
 	}
 
 	void listMonsters() {
+		if (monsters.isEmpty()) {
+			System.out.println("Luola on tyhjä.");
+
+			return;
+		}
+
 		for (int i = 0; i < monsters.size(); i ++) {
 			monsters.get(i).printInfo(i + 1);
 		}
@@ -84,7 +90,7 @@ class Impl {
 	Impl(String[] args) {
 		in = new Scanner(System.in);
 
-		System.out.println("Syötä pelaajan nimi");
+		System.out.println("Syötä pelaajan nimi:");
 
 		Player player = new Player(in.nextLine());
 
@@ -94,7 +100,7 @@ class Impl {
 	void close() {
 		in.close();
 
-		System.out.println("Kiitos ohjelman käytöstä.");
+		System.out.println("Peli päättyy. Kiitos pelaamisesta!");
 	}
 
 	void LisaaLuolaanHirvio() {
@@ -112,6 +118,8 @@ class Impl {
 	}
 
 	void ListaaHirviot() {
+		System.out.println("Luolan hirviöt:");
+
 		cave.listMonsters();
 	}
 
@@ -135,6 +143,8 @@ class Impl {
 				break;
 
 			case Dead:
+				System.out.println(String.format("%s on kuollut!", monster.type));
+
 				cave.monsters.remove(number);
 
 				break;
@@ -160,7 +170,7 @@ class Impl {
 	}
 
 	void LataaPeli() {
-		System.out.println("Anna tiedoston nimi, josta peli ldataan:");
+		System.out.println("Anna tiedoston nimi, josta peli ladataan:");
 
 		String filename = in.nextLine();
 
@@ -176,7 +186,7 @@ class Impl {
 			i.printStackTrace();
 		}
 
-		System.out.println(String.format("Peli luettu tiedostosta %s. Tervetuloa takaisin, %s.", filename, cave.player.name));
+		System.out.println(String.format("Peli ladattu tiedostosta %s. Tervetuloa takaisin, %s.", filename, cave.player.name));
 	}
 
 	boolean run() {
