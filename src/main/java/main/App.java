@@ -43,8 +43,12 @@ class Monster implements java.io.Serializable {
 		health -= dmg;
 
 		if (health > 0) {
+			System.out.println(String.format("Hirviöllä on %d elämää jäljellä.", health));
+
 			return State.Alive;
 		} else {
+			System.out.println(String.format("%s on kuollut!", type));
+
 			return State.Dead;
 		}
 	}
@@ -71,6 +75,8 @@ class Cave implements java.io.Serializable {
 
 			return;
 		}
+
+		System.out.println("Luolan hirviöt:");
 
 		for (int i = 0; i < monsters.size(); i ++) {
 			monsters.get(i).printInfo(i + 1);
@@ -118,8 +124,6 @@ class Impl {
 	}
 
 	void ListaaHirviot() {
-		System.out.println("Luolan hirviöt:");
-
 		cave.listMonsters();
 	}
 
@@ -138,13 +142,9 @@ class Impl {
 
 		switch (ms) {
 			case Alive:
-				System.out.println(String.format("Hirviöllä on %d elämää jäljellä.", monster.health));
-
 				break;
 
 			case Dead:
-				System.out.println(String.format("%s on kuollut!", monster.type));
-
 				cave.monsters.remove(number);
 
 				break;
